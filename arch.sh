@@ -1,10 +1,9 @@
 #!/bin/bash
 
 timedatectl set-ntp true
-timedatectl status
 
-mkfs.fat -F32 -n "Insert" /dev/sda6
-mkfs.ext4 -L "Insert" /dev/sda9
+mkfs.fat -F32 -n "EFIWHA" /dev/sda6
+mkfs.ext4 -L "BOOTWHA" /dev/sda9
 mount /dev/sda9 /mnt
 mkdir /boot/efi
 mount /dev/sda6 /boot/efi
