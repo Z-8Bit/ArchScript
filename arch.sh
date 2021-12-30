@@ -8,6 +8,8 @@ mount /dev/sda9 /mnt
 mkdir /boot/efi
 mount /dev/sda6 /boot/efi
 
+echo "ParallelDownloads = 10" >> /etc/pacman.conf
+
 pacstrap /mnt base linux linux-firmware sudo
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
