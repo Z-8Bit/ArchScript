@@ -5,6 +5,8 @@ timedatectl status
 
 mkfs.fat -F32 -n "BOOTWHA" /dev/sda6
 mkfs.ext4 -L "ROOTWHA" /dev/sda9
+# mkswap /dev/sda7
+# swapon /dev/sda7
 mount /dev/sda9 /mnt
 mkdir /boot/efi
 mount /dev/sda6 /boot/efi
