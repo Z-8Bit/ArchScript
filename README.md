@@ -1,2 +1,1 @@
-# TestArch
-My arch install script being tested
+# My personal ArchScript
