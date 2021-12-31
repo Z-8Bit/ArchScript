@@ -9,7 +9,7 @@ mount /dev/sda9 /mnt
 mkdir /boot/efi
 mount /dev/sda6 /boot/efi
 
-echo "ParallelDownloads = 10" >> /etc/pacman.conf
+sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
 
 pacstrap /mnt base linux linux-firmware sudo
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -25,6 +25,7 @@ echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 zish.localdomain zish" >> /etc/hosts
 echo root:1805 | chpasswd
+sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
 
 pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch --noconfirm
 
