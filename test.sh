@@ -16,6 +16,9 @@ read boot
 echo "Please enter your preferred root directory like (/dev/sda6)."
 read root
 
+# echo "Please enter your preferred swap directory like (/dev/sda9)."
+# read swap
+
 echo "Please enter your preferred timezone like (Asia/Kolkata)"
 read timezone
 
@@ -24,8 +27,8 @@ timedatectl status
 
 mkfs.fat -F32 -n "BOOT" ${boot}
 mkfs.ext4 -L "ROOT" ${root}
-# mkswap /dev/sda7
-# swapon /dev/sda7
+# mkswap ${swap}
+# swapon ${swap}
 mount ${root} /mnt
 mkdir /boot/efi
 mount ${boot} /boot/efi
@@ -45,7 +48,7 @@ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
-# Hostname 
+# Hostname
 echo ${hostname} >> /etc/hostname
 echo -e "127.0.0.1\tlocalhost" >> /etc/hosts
 echo -e "::1\t\tlocalhost" >> /etc/hosts
@@ -57,7 +60,7 @@ sed -i "/#Color/a ILoveCandy" /etc/pacman.conf  # Making pacman prettier
 sed -i "s/#Color/Color/g" /etc/pacman.conf  # Add color to pacman
 sed -i "s/#ParallelDownloads = 5/ParallelDownloads = 10/g" /etc/pacman.conf  # Parallel downloads
 
-#Package Downloading
+# Package Downloading
 pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch --noconfirm
 
 # grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB 
