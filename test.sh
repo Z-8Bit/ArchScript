@@ -25,7 +25,7 @@ read timezone
 timedatectl set-ntp true
 timedatectl status
 
-mkfs.fat -F32 -n "BOOT" "${boot}"
+mkfs.vfat -n "BOOT" "${boot}"
 mkfs.ext4 -L "ROOT" "${root}"
 # mkswap ${swap}
 # swapon ${swap}
