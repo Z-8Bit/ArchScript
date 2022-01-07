@@ -32,10 +32,10 @@ sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
 pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch --noconfirm
 
 # grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB 
-# grub-install --target=x86_64-efi  --bootloader-id=Arch --recheck
 # grub-mkconfig -o /boot/grub/grub.cfg
 # echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub 
 # grub-mkconfig -o /boot/grub/grub.cfg
+# pacman -S refind && refind install 
 
 systemctl enable NetworkManager
 systemctl enable bluetooth
