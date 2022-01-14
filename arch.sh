@@ -29,7 +29,7 @@ echo "127.0.1.1 zish.localdomain zish" >> /etc/hosts
 echo root:1805 | chpasswd
 sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
 
-pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch --noconfirm
+pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch powertop --noconfirm
 
 # grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB 
 # grub-mkconfig -o /boot/grub/grub.cfg
@@ -37,12 +37,24 @@ pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mt
 # grub-mkconfig -o /boot/grub/grub.cfg
 # pacman -S refind && refind install 
 
-systemctl enable NetworkManager
-systemctl enable bluetooth
+echo -e "[Unit]
+Description=Powertop tunings
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/powertop --auto-tune
+
+[Install]
+WantedBy=multi-user.target" >> /etc/systemd/system/powertop.service
+
+for service in bluetooth NetworkManager; do
+  systemctl enable $service
+done
 
 useradd -m zishaan
 echo zishaan:1805 | chpasswd
-usermod -aG wheel,audio,video,optical,storage zishaan
+usermod -aG wheel,audio,video,optical,storage,input zishaan
 
 echo "zishaan ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/zishaan
 

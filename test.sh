@@ -61,7 +61,7 @@ sed -i "s/#Color/Color/g" /etc/pacman.conf  # Add color to pacman
 sed -i "s/#ParallelDownloads = 5/ParallelDownloads = 10/g" /etc/pacman.conf  # Parallel downloads
 
 # Package Downloading
-pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch  --noconfirm
+pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch powertop  --noconfirm
 
 # grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB 
 # grub-install --target=x86_64-efi  --bootloader-id=Arch --recheck
@@ -69,6 +69,17 @@ pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mt
 # echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub 
 # grub-mkconfig -o /boot/grub/grub.cfg
 # refind-install
+
+echo -e "[Unit]
+Description=Powertop tunings
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/powertop --auto-tune
+
+[Install]
+WantedBy=multi-user.target" >> /etc/systemd/system/powertop.service
 
 for service in bluetooth NetworkManager; do
   systemctl enable $service
