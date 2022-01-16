@@ -53,7 +53,7 @@ echo "${hostname}" >> /etc/hostname
 echo -e "127.0.0.1\tlocalhost" >> /etc/hosts
 echo -e "::1\t\tlocalhost" >> /etc/hosts
 echo -e "127.0.1.1\t${hostname}.localdomain\t${hostname}" >> /etc/hosts
-echo root:"${password}" | chpasswd
+echo "root:$password" | chpasswd
 
 # Pacman Configuration
 sed -i "/#Color/a ILoveCandy" /etc/pacman.conf  # Making pacman prettier
@@ -87,7 +87,7 @@ done
 
 # Username
 useradd -m "${username}"
-echo "${username}":"${password}" | chpasswd
+echo "$username:$password" | chpasswd
 usermod -aG wheel,audio,video,storage,input ${username}
 
 echo "${username} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/"${username}"
