@@ -26,7 +26,7 @@ echo "zish" >> /etc/hostname
 echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 zish.localdomain zish" >> /etc/hosts
-echo root:1805 | chpasswd
+echo "root:1805" | chpasswd
 sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
 
 pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch powertop --noconfirm
@@ -53,7 +53,7 @@ for service in bluetooth NetworkManager; do
 done
 
 useradd -m zishaan
-echo zishaan:1805 | chpasswd
+echo "zishaan:1805" | chpasswd
 usermod -aG wheel,audio,video,optical,storage,input zishaan
 
 echo "zishaan ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/zishaan
