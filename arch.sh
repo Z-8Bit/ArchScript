@@ -38,13 +38,11 @@ pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mt
 # pacman -S refind && refind install 
 
 echo -e "[Unit]
-Description=Powertop tunings
-
+Description=Powertop tunings \n
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/bin/powertop --auto-tune
-
+ExecStart=/usr/bin/powertop --auto-tune \n
 [Install]
 WantedBy=multi-user.target" >> /etc/systemd/system/powertop.service
 
