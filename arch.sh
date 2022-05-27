@@ -3,13 +3,13 @@
 timedatectl set-ntp true
 timedatectl status
 
-mkfs.fat -F32 -n "BOOTWHA" /dev/sda6
-mkfs.ext4 -L "ROOTWHA" /dev/sda9
-# mkswap /dev/sda7
-# swapon /dev/sda7
-mount /dev/sda9 /mnt
+mkfs.fat -F32 -n "BOOTWHA" /dev/sda2
+mkfs.ext4 -L "ROOTWHA" /dev/sda1
+# mkswap /dev/sda3
+# swapon /dev/sda3
+mount /dev/sda1 /mnt
 mkdir /boot/efi
-mount /dev/sda6 /boot/efi
+mount /dev/sda2 /boot/efi
 
 sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
 
@@ -29,7 +29,8 @@ echo "127.0.1.1 zish.localdomain zish" >> /etc/hosts
 echo "root:1805" | chpasswd
 sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
 
-pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch powertop --noconfirm
+pacman -S efibootmgr vim networkmanager network-manager-applet base-devel linux-headers gvfs ntfs-3g bluez bluez-utils git neofetch powertop --noconfirm
+#pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch powertop --noconfirm
 
 # grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB 
 # grub-mkconfig -o /boot/grub/grub.cfg
@@ -55,6 +56,7 @@ echo "zishaan:1805" | chpasswd
 usermod -aG wheel,audio,video,optical,storage,input zishaan
 
 echo "zishaan ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/zishaan
+git clone https://github.com/Z-8Bit/ArchScript.git
 
 EOF
 
