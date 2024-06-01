@@ -3,13 +3,13 @@
 timedatectl set-ntp true
 timedatectl status
 
-mkfs.fat -F32 -n "BOOTWHA" /dev/sda2
-mkfs.ext4 -L "ROOTWHA" /dev/sda1
+mkfs.fat -F32 -n "BOOTWHA" /dev/nvme0n1p1
+mkfs.ext4 -L "ROOTWHA" /dev/nvme0n1p2
 # mkswap /dev/sda3
 # swapon /dev/sda3
-mount /dev/sda1 /mnt
+mount /dev/nvme0n1p2 /mnt
 mkdir /boot/efi
-mount /dev/sda2 /boot/efi
+mount /dev/nvme0n1p1 /boot/efi
 
 sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
 
@@ -29,14 +29,14 @@ echo "127.0.1.1 zish.localdomain zish" >> /etc/hosts
 echo "root:1805" | chpasswd
 sed -i 's/#ParallelDownloads/ParallelDownloads/g' /etc/pacman.conf
 
-pacman -S efibootmgr vim networkmanager network-manager-applet base-devel linux-headers gvfs ntfs-3g bluez bluez-utils git neofetch powertop --noconfirm
+pacman -S efibootmgr vim networkmanager network-manager-applet base-devel linux-headers gvfs ntfs-3g bluez bluez-utils git neofetch --noconfirm
 #pacman -S efibootmgr vim networkmanager network-manager-applet wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi gvfs os-prober ntfs-3g bluez bluez-utils git neofetch powertop --noconfirm
 
 # grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB 
 # grub-mkconfig -o /boot/grub/grub.cfg
 # echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub 
 # grub-mkconfig -o /boot/grub/grub.cfg
-# pacman -S refind && refind install 
+pacman -S refind && refind install 
 
 echo -e "[Unit]
 Description=Powertop tunings \n
